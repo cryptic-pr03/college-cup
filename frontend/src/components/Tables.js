@@ -1,8 +1,8 @@
 import Table from "react-bootstrap/Table";
 
 function Tables({ headings, data }) {
-  console.log(headings);
-  console.log(data);
+  // console.log("TABLEheadings: ", headings);
+  // console.log("TABLEdata : ", data);
   return (
     <Table striped bordered hover>
       <thead>

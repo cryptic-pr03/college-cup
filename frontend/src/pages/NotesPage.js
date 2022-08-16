@@ -2,36 +2,53 @@ import Tables from "../components/Tables";
 import SearchBar from "../components/SearchBar";
 import "./NotesPage.css";
 import axios from "axios";
+import { useState, useEffect } from "react";
 
-const dummydata = [
-  {
-    "_id": "62e7ffca807b89ca0e98c34e",
-    "name": "Carbohydrates",
-    "url": "https://drive.google.com/open?id=1rZH_yEwmCpcR6TqLvKuVfUKSjj0qE6VX",
-    "code": "BC-201",
-    "course": "Advances in Biochemistry",
-    "type": "Notes"
-  },
-  {
-    "_id": "62e7ffca807b89ca0e98c34f",
-    "name": "Control of Gene expression",
-    "url": "https://drive.google.com/open?id=1dQbpkhqOo1NHA4c3ZHPSfKNulhNUFlTH",
-    "code": "BC-201",
-    "course": "Advances in Biochemistry",
-    "type": "Notes"
-  },
-];
-
-const headings = ['Name', 'Code' ,'Course', 'Type', 'Link'];
+const headings = ["Name", "Code", "Course", "Type", "Link"];
 
 export default function NotesPage() {
+  const [data, setData] = useState(() => []);
+  const [visibleData, setVisibleData] = useState(() => []);
+  const [searchText, setSearchText] = useState(() => "H");
+
+  const filterData = () => {
+    if (searchText == "") {
+      setVisibleData(data);
+    } else {
+      setVisibleData(
+        data.filter(
+          (each) =>
+            each.name.toUpperCase().includes(searchText) ||
+            each.code.toUpperCase().includes(searchText) ||
+            each.course.toUpperCase().includes(searchText) ||
+            each.type.toUpperCase().includes(searchText)
+        )
+      );
+    }
+  };
+
+  const fetchData = async () => {
+    await axios
+      .get(`https://college-cup.vercel.app/docs/getAll`, {})
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((e) => console.dir("error occured catched", e));
+  };
+
+
+  useEffect(() => {
+    fetchData();
+    filterData();
+  }, [searchText, data]);
+
   return (
     <div className="container-xxl">
       <header>
         <h1> Notes : </h1>
-        <SearchBar />
+        <SearchBar setSearchText={setSearchText} />
       </header>
-      <Tables headings={headings} data = {dummydata} />
+      <Tables headings={headings} data={visibleData} />
     </div>
   );
 }

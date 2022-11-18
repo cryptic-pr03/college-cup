@@ -36,7 +36,6 @@ export default function NotesPage() {
       .catch((e) => console.dir("error occured catched", e));
   };
 
-
   useEffect(() => {
     fetchData();
     filterData();
@@ -45,7 +44,23 @@ export default function NotesPage() {
   return (
     <div className="container-xxl">
       <header>
-        <h1> Notes : </h1>
+        <div className="d-flex align-items-center">
+          <img
+            src="/Scs-Logo.png"
+            alt="SCS-logo"
+            className="img-fluid"
+            style={{ width: "55px" }}
+          />{" "}
+          <span
+            className="fs-6 fst-italic primary text-wrap"
+            style={{ width: "8rem" }}
+          >
+            {" "}
+            <span className="fw-bold">Sakha: </span> Your friend in campus{" "}
+          </span>
+        </div>
+        <span className="fs-3"> Notes </span>
+
         <SearchBar setSearchText={setSearchText} />
       </header>
       <Tables headings={headings} data={visibleData} />

@@ -8,21 +8,7 @@ function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">
-          <img
-            alt=""
-            src="/Scs-Logo.png"
-            width="50"
-            height="50"
-            className="d-inline-block align-center"
-          />{" "}
-          <span
-            className="badge text-wrap align-center"
-            style={{ fontSize: "18px", width: "9rem" }}
-          >
-            College-Cup by SCS
-          </span>
-        </Navbar.Brand>
+        <Navbar.Brand href="/">College-Cup</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
